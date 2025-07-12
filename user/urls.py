@@ -1,10 +1,26 @@
-from django.urls import path
-from user.views import CreateUserView, CreateTokenView, ManageUserView
-
-app_name = "user"
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView,
+)
 
 urlpatterns = [
-    path("register/", CreateUserView.as_view(), name="create"),
-    path("login/", CreateTokenView.as_view(), name="login"),
-    path("me/", ManageUserView.as_view(), name="manage"),
-]
+    path("admin/", admin.site.urls),
+    path("api/cinema/", include("cinema.urls", namespace="cinema")),
+    path("api/user/", include("user.urls", namespace="user")),
+    path("__debug__/", include("debug_toolbar.urls")),
+    path("api/doc/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/doc/swagger/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/doc/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc"
+    ),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
