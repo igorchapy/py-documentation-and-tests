@@ -60,6 +60,9 @@ class CinemaHallViewSet(
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
+class MovieDetailView(APIView):
+    def get(self, request, pk):
+        return Response({"id": pk, "title": "Example Movie"})
 
 class MovieViewSet(
     mixins.ListModelMixin,
