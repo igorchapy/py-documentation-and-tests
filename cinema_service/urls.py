@@ -1,11 +1,10 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
-    SpectacularRedocView,
+    SpectacularRedocView
 )
 
 
@@ -18,7 +17,7 @@ urlpatterns = [
     path(
         "api/doc/swagger/",
         SpectacularSwaggerView.as_view(url_name="schema"),
-        name="swagger-ui",
+        name="swagger-ui"
     ),
     path(
         "api/doc/redoc/",
