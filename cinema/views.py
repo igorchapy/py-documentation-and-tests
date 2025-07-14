@@ -64,6 +64,13 @@ class MovieDetailView(APIView):
     def get(self, request, pk):
         return Response({"id": pk, "title": "Example Movie"})
 
+class MovieListView(APIView):
+    def get(self, request):
+        return Response([
+            {"id": 1, "title": "Movie 1"},
+            {"id": 2, "title": "Movie 2"},
+        ])
+
 class MovieViewSet(
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
